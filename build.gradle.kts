@@ -18,7 +18,7 @@ buildscript {
 
 
 plugins {
-    id("com.diffplug.spotless").version("5.12.4")
+    id("com.diffplug.spotless").version("5.14.2")
     id("com.github.ben-manes.versions").version("0.39.0")
 }
 
@@ -60,6 +60,12 @@ subprojects {
         }
     }
 
+    // androidx.test is forcing JUnit, 4.12. This forces it to use 4.13.2
+    configurations.configureEach {
+        resolutionStrategy {
+            force(com.example.arthingy.buildsrc.Libs.junit)
+        }
+    }
 }
 
 fun isNonStable(version: String): Boolean {

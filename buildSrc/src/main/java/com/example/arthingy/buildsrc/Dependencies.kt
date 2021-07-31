@@ -5,7 +5,7 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.0-alpha03"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.0-alpha05"
     const val ktLint = "com.pinterest:ktlint:0.41.0"
     const val junit = "junit:junit:4.13.2"
     const val material = "com.google.android.material:material:1.4.0"
@@ -15,7 +15,7 @@ object Libs {
     const val store = "com.dropbox.mobile.store:store4:4.0.2-KT15"
 
     object Hilt {
-        private const val version = "2.37"
+        private const val version = "2.38.1"
         const val hiltCompiler = "com.google.dagger:hilt-android-compiler:$version"
         const val hiltAndroid = "com.google.dagger:hilt-android:$version"
         const val hiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
@@ -46,7 +46,7 @@ object Libs {
     }
 
     object Accompanist {
-        private const val version = "0.14.0"
+        private const val version = "0.15.0"
         const val glide = "com.google.accompanist:accompanist-glide:$version"
         const val insets = "com.google.accompanist:accompanist-insets:$version"
         const val pager = "com.google.accompanist:accompanist-pager:$version"
@@ -54,14 +54,14 @@ object Libs {
     }
 
     object AndroidX {
-        const val appcompat = "androidx.appcompat:appcompat:1.3.0"
+        const val appcompat = "androidx.appcompat:appcompat:1.3.1"
         const val coreKtx = "androidx.core:core-ktx:1.6.0"
-        const val navigation = "androidx.navigation:navigation-compose:2.4.0-alpha04"
-        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-beta02"
-        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.5"
+        const val navigation = "androidx.navigation:navigation-compose:2.4.0-alpha05"
+        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-rc02"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.6"
 
         object Activity {
-            const val activityCompose = "androidx.activity:activity-compose:1.3.0-rc02"
+            const val activityCompose = "androidx.activity:activity-compose:1.3.0"
         }
 
         object Paging {
@@ -72,7 +72,7 @@ object Libs {
 
         object Compose {
             const val snapshot = ""
-            const val version = "1.0.0-rc02"
+            const val version = "1.0.0"
 
             const val foundation = "androidx.compose.foundation:foundation:$version"
             const val layout = "androidx.compose.foundation:foundation-layout:$version"
@@ -97,17 +97,17 @@ object Libs {
         }
 
         object Test {
-            private const val version = "1.3.0"
+            private const val version = "1.4.0"
             const val core = "androidx.test:core:$version"
             const val rules = "androidx.test:rules:$version"
 
             object Ext {
-                private const val version = "1.1.2"
+                private const val version = "1.1.3"
                 const val junit = "androidx.test.ext:junit-ktx:$version"
 
             }
 
-            const val espressoCore = "androidx.test.espresso:espresso-core:3.3.0"
+            const val espressoCore = "androidx.test.espresso:espresso-core:3.4.0"
         }
 
         object Lifecycle {
@@ -122,9 +122,3 @@ object Libs {
 
 }
 
-object Urls {
-    const val mavenCentralSnapshotRepo = "https://oss.sonatype.org/content/repositories/snapshots/"
-    const val composeSnapshotRepo = "https://androidx.dev/snapshots/builds/" +
-            "${Libs.AndroidX.Compose.snapshot}/artifacts/repository/"
-    const val maven = "https://kotlin.bintray.com/kotlinx"
-}

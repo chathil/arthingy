@@ -61,7 +61,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = com.example.arthingy.buildsrc.Libs.AndroidX.Compose.version
+        kotlinCompilerExtensionVersion = Libs.AndroidX.Compose.version
     }
     packagingOptions {
         resources.excludes.add("META-INF/licenses/**")
@@ -69,6 +69,7 @@ android {
         resources.excludes.add("META-INF/LGPL2.1")
         resources.excludes.add("/*.jar")
     }
+
 }
 
 dependencies {
@@ -76,7 +77,7 @@ dependencies {
     implementation(project(":common-ui"))
     implementation(project(":ui-main"))
     implementation(project(":common-ui-resources"))
-    implementation(com.example.arthingy.buildsrc.Libs.hiltNavigationCompose)
+    implementation(Libs.hiltNavigationCompose)
 }
 
 

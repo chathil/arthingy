@@ -1,6 +1,7 @@
 val implementation by configurations
 val kapt by configurations
 val androidTestImplementation by configurations
+val testImplementation by configurations
 
 dependencies {
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Paging.runtime)
@@ -19,16 +20,11 @@ dependencies {
     kapt(com.example.arthingy.buildsrc.Libs.Hilt.hiltCompiler)
     implementation(com.example.arthingy.buildsrc.Libs.Hilt.hiltAndroid)
 
-    androidTestImplementation(com.example.arthingy.buildsrc.Libs.junit)
+    testImplementation(com.example.arthingy.buildsrc.Libs.junit)
     androidTestImplementation(com.example.arthingy.buildsrc.Libs.AndroidX.Test.Ext.junit)
     androidTestImplementation(com.example.arthingy.buildsrc.Libs.AndroidX.Test.core)
     androidTestImplementation(com.example.arthingy.buildsrc.Libs.AndroidX.Test.rules)
     androidTestImplementation(com.example.arthingy.buildsrc.Libs.AndroidX.Test.espressoCore)
 
-    // androidx.test is forcing JUnit, 4.12. This forces it to use 4.13.2
-    configurations.configureEach {
-        resolutionStrategy {
-            force(com.example.arthingy.buildsrc.Libs.junit)
-        }
-    }
+
 }
