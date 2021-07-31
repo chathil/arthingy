@@ -3,12 +3,10 @@ name: Build
 on:
   push:
     branches:
-      - mvvm
-      - clean-arch
+      - master
   pull_request:
     branches:
-      - mvvm
-      - clean-arch
+      - master
 
 jobs:
   build:
