@@ -53,6 +53,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = com.example.arthingy.buildsrc.Libs.AndroidX.Compose.version
     }
+    packagingOptions {
+        resources.excludes.add("META-INF/licenses/**")
+        resources.excludes.add("META-INF/AL2.0")
+        resources.excludes.add("META-INF/LGPL2.1")
+        resources.excludes.add("/*.jar")
+    }
 }
 
 dependencies {

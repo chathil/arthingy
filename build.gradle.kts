@@ -59,6 +59,7 @@ subprojects {
             jvmTarget = "1.8"
         }
     }
+
 }
 
 fun isNonStable(version: String): Boolean {
