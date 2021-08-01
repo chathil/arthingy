@@ -1,7 +1,9 @@
 package com.example.uimain
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,9 +17,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.primarySurface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -45,6 +49,46 @@ fun HomeScreen(
             HomeTopAppBar()
         }
     ) { innerPadding ->
+        Column(modifier = Modifier.padding(innerPadding)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .horizontalScroll(rememberScrollState())
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(16.dp)
+            ) {
+                SearchChip()
+                Spacer(size = 8.dp)
+                Chip(text = "Materials")
+                Spacer(size = 8.dp)
+                Chip(text = "Paintings")
+                Spacer(size = 8.dp)
+                Chip(text = "Time Based Media")
+                Spacer(size = 8.dp)
+                Chip(text = "Equipment")
+            }
+        }
+    }
+}
+
+// TODO: 01/08/21 : The ripple effect is still in rectangle
+@Composable
+fun SearchChip(
+    modifier: Modifier = Modifier,
+    onTap: () -> Unit = {}
+) {
+    Surface(
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f),
+        contentColor = MaterialTheme.colors.onSurface,
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier.clickable { onTap() }
+    ) {
+        Icon(
+            imageVector = Icons.Rounded.Search,
+            contentDescription = "Search Button",
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+        )
     }
 }
 
