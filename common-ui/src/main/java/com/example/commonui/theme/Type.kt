@@ -55,7 +55,7 @@ val ArthingyTypography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.75.sp,
 
-        ),
+    ),
     subtitle1 = TextStyle(
         fontFamily = Poppins,
         fontSize = 16.sp,
