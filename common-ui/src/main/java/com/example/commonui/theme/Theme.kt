@@ -6,20 +6,24 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-/**
- * For later
- */
 private val DarkColorPalette = darkColors(
     primary = DarkerPurple,
+    onPrimary = Black,
     primaryVariant = LighterPurple,
-    secondary = Teal
+    secondary = Teal,
+    onSecondary = Black,
+    error = Red300,
+    onError = Black
 )
 
 private val LightColorPalette = lightColors(
     primary = Purple,
+    onPrimary = Black,
     primaryVariant = LighterPurple,
     secondary = Teal,
-    onPrimary = PrimaryTextColor
+    onSecondary = Black,
+    error = Red300,
+    onError = Black
 )
 
 @Composable
@@ -33,7 +37,7 @@ fun ArthingyTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composab
     MaterialTheme(
         colors = colors,
         typography = ArthingyTypography,
-        shapes = Shapes,
+        shapes = ArthingyShapes,
         content = content
     )
 }

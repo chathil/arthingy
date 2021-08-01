@@ -1,24 +1,30 @@
 package com.example.uimain
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Person
+import androidx.compose.material.primarySurface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
-import com.example.commonui.component.InsetAwareTopAppBar
+import com.example.commonui.component.Spacer
+import com.example.commonui.util.LocalSysUiController
 
 enum class HomeViewComponent {
 //    PET_LIST
@@ -28,42 +34,102 @@ enum class HomeViewComponent {
 fun HomeScreen(
     viewModel: HomeViewModel
 ) {
-    val artworks = viewModel.artworks().collectAsLazyPagingItems()
+//    val artworks = viewModel.artworks().collectAsLazyPagingItems()
+    LocalSysUiController.current.setStatusBarColor(
+        MaterialTheme.colors.primary
+    )
 
     Scaffold(
         scaffoldState = rememberScaffoldState(),
         topBar = {
-            val title = stringResource(id = R.string.app_name)
-            InsetAwareTopAppBar(
-                title = { Text(text = title) },
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Rounded.Person,
-                            contentDescription = stringResource(R.string.user)
-                        )
-                    }
-                }
-            )
+            HomeTopAppBar()
         }
     ) { innerPadding ->
-        LazyColumn(
+    }
+}
+
+@Composable
+private fun HomeTopAppBar() {
+    val title = stringResource(id = R.string.app_name)
+
+    ExpandedTopAppBar(
+        title = { Text(text = title) },
+        actions = {
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Rounded.Person,
+                    contentDescription = stringResource(R.string.user)
+                )
+            }
+        },
+        expandedContent = {
+            AgentHeader(
+                modifier = Modifier.wrapContentHeight()
+            )
+        },
+        modifier = Modifier
+            .wrapContentHeight()
+            .fillMaxWidth()
+    )
+}
+
+@Composable
+fun AgentHeader(
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = MaterialTheme.colors.primarySurface,
+) {
+    Surface(
+        color = backgroundColor,
+        modifier = modifier
+    ) {
+        Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+                .horizontalScroll(rememberScrollState())
+                .padding(bottom = 16.dp)
+                .background(Color.Transparent)
         ) {
-            item {
-                Spacer(Modifier.padding(16.dp))
-            }
-
-            items(artworks) { artwork ->
-                Text(artwork?.title ?: "Unknown Arts")
-                Spacer(modifier = Modifier.size(32.dp))
-            }
-
-            item {
-                Spacer(Modifier.padding(64.dp))
-            }
+            Spacer(size = 16.dp)
+            AgentCircle()
+            Spacer(size = 8.dp)
+            AgentCircle()
+            Spacer(size = 8.dp)
+            AgentCircle()
+            Spacer(size = 8.dp)
+            AgentCircle()
+            Spacer(size = 8.dp)
+            AgentCircle()
+            Spacer(size = 8.dp)
+            AgentCircle()
+            Spacer(size = 8.dp)
+            AgentCircle()
+            Spacer(size = 16.dp)
         }
     }
 }
+
+@Preview
+@Composable
+private fun HomeTopAppBarPreview() {
+    HomeTopAppBar()
+}
+
+// {
+//    LazyColumn(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .padding(innerPadding)
+//    ) {
+//        item {
+//            Spacer(Modifier.padding(16.dp))
+//        }
+//
+//        items(artworks) { artwork ->
+//            Text(artwork?.title ?: "Unknown Arts")
+//            Spacer(modifier = Modifier.size(32.dp))
+//        }
+//
+//        item {
+//            Spacer(Modifier.padding(64.dp))
+//        }
+//    }
+// }

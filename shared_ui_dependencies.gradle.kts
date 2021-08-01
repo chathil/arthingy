@@ -20,7 +20,6 @@ dependencies {
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Compose.compiler)
 
     implementation(com.example.arthingy.buildsrc.Libs.Accompanist.insets)
-    implementation(com.example.arthingy.buildsrc.Libs.Accompanist.glide)
     implementation(com.example.arthingy.buildsrc.Libs.Accompanist.pager)
     implementation(com.example.arthingy.buildsrc.Libs.Accompanist.pagerIndicators)
 
@@ -35,7 +34,10 @@ dependencies {
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Lifecycle.viewModelCompose)
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Lifecycle.runtimeKtx)
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.fragmentKtx)
+    implementation(com.example.arthingy.buildsrc.Libs.AndroidX.palette)
+
 
     implementation(com.example.arthingy.buildsrc.Libs.material)
+    implementation(com.example.arthingy.buildsrc.Libs.Coil.coilCompose)
 
 }

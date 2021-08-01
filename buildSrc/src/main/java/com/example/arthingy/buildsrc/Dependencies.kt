@@ -5,7 +5,11 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.1.0-alpha05"
+    /**
+     * The latest AGP is causing this error
+     * "abstract method "void androidx.lifecycle.DefaultLifecycleObserver.onCreate(androidx.lifecycle.LifecycleOwner)"
+     */
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.0"
     const val ktLint = "com.pinterest:ktlint:0.41.0"
     const val junit = "junit:junit:4.13.2"
     const val material = "com.google.android.material:material:1.4.0"
@@ -47,7 +51,6 @@ object Libs {
 
     object Accompanist {
         private const val version = "0.15.0"
-        const val glide = "com.google.accompanist:accompanist-glide:$version"
         const val insets = "com.google.accompanist:accompanist-insets:$version"
         const val pager = "com.google.accompanist:accompanist-pager:$version"
         const val pagerIndicators = "com.google.accompanist:accompanist-pager-indicators:$version"
@@ -59,6 +62,7 @@ object Libs {
         const val navigation = "androidx.navigation:navigation-compose:2.4.0-alpha05"
         const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-rc02"
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.3.6"
+        const val palette = "androidx.palette:palette:1.0.0"
 
         object Activity {
             const val activityCompose = "androidx.activity:activity-compose:1.3.0"
@@ -85,8 +89,6 @@ object Libs {
             const val test = "androidx.compose.ui:ui-test:$version"
             const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
             const val compiler = "androidx.compose.compiler:compiler:$version"
-
-
         }
         object Room {
             private const val version = "2.3.0"
@@ -118,6 +120,10 @@ object Libs {
                 "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07"
         }
 
+    }
+
+    object Coil {
+        const val coilCompose = "io.coil-kt:coil-compose:1.3.1"
     }
 
 }

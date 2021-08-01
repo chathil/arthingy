@@ -49,6 +49,7 @@ android {
         resources.excludes.add("META-INF/LGPL2.1")
         resources.excludes.add("/*.jar")
     }
+
 }
 
 dependencies {
