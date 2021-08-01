@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.core.view.WindowCompat
-import com.example.util.LocalSysUiController
-import com.example.util.SystemUiController
+import com.example.commonui.util.LocalSysUiController
+import com.example.commonui.util.SystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

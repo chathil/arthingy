@@ -1,7 +1,7 @@
 package com.example.arthingy
 
 import androidx.compose.runtime.Composable
-import com.example.commonui.theme.ComposeKitTheme
+import com.example.commonui.theme.ArthingyTheme
 import com.google.accompanist.insets.ProvideWindowInsets
 
 @Composable
@@ -13,7 +13,7 @@ fun ArthingyApp(
     finishActivity: () -> Unit,
 ) {
     ProvideWindowInsets {
-        ComposeKitTheme {
+        ArthingyTheme {
             NavGraph(finishActivity = finishActivity)
         }
     }

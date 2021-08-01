@@ -2,7 +2,10 @@ package com.example.commonui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Purple = Color(0xFF9DAFEE)
+val Teal = Color(0xFFB2DFDB)
+val LighterPurple = Color(0xFFD0E1FF)
+val DarkerPurple = Color(0xFF8698D1)
+val PrimaryTextColor = Color(0xFF000000)
+
+

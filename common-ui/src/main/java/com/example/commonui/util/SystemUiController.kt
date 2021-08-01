@@ -1,4 +1,4 @@
-package com.example.util
+package com.example.commonui.util
 
 import android.os.Build
 import android.view.View
