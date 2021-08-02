@@ -17,6 +17,7 @@ object Libs {
     const val kotlinxCollections = "org.jetbrains.kotlinx:kotlinx-collections-immutable-jvm:0.3.4"
     const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
     const val store = "com.dropbox.mobile.store:store4:4.0.2-KT15"
+    const val fluentIcons = "com.microsoft.design:fluent-system-icons:1.1.136@aar"
 
     object Hilt {
         private const val version = "2.38.1"

@@ -4,6 +4,7 @@ val androidTestImplementation by configurations
 
 dependencies {
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Paging.compose)
+    implementation(com.example.arthingy.buildsrc.Libs.fluentIcons)
 
     implementation(com.example.arthingy.buildsrc.Libs.Kotlin.stdlib)
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Room.legacySupport)

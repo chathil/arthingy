@@ -15,15 +15,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Person
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.primarySurface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,7 +38,7 @@ fun HomeScreen(
 ) {
 //    val artworks = viewModel.artworks().collectAsLazyPagingItems()
     LocalSysUiController.current.setStatusBarColor(
-        MaterialTheme.colors.primary
+        MaterialTheme.colors.primarySurface
     )
 
     Scaffold(
@@ -68,6 +66,20 @@ fun HomeScreen(
                 Spacer(size = 8.dp)
                 Chip(text = "Equipment")
             }
+            Row(
+                modifier = Modifier.horizontalScroll(rememberScrollState()).fillMaxWidth()
+                    .wrapContentHeight()
+            ) {
+                Spacer(16.dp)
+                Artwork()
+                Spacer(16.dp)
+                Artwork()
+                Spacer(16.dp)
+                Artwork()
+                Spacer(16.dp)
+                Artwork()
+                Spacer(16.dp)
+            }
         }
     }
 }
@@ -85,7 +97,7 @@ fun SearchChip(
         modifier = modifier.clickable { onTap() }
     ) {
         Icon(
-            imageVector = Icons.Rounded.Search,
+            painter = painterResource(id = R.drawable.ic_fluent_search_24_regular),
             contentDescription = "Search Button",
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
         )
@@ -101,7 +113,7 @@ private fun HomeTopAppBar() {
         actions = {
             IconButton(onClick = {}) {
                 Icon(
-                    imageVector = Icons.Rounded.Person,
+                    painter = painterResource(id = R.drawable.ic_fluent_person_24_filled),
                     contentDescription = stringResource(R.string.user)
                 )
             }
