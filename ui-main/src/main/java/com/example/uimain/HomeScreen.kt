@@ -3,7 +3,6 @@ package com.example.uimain
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -120,6 +119,39 @@ fun HomeScreen(
                     Story()
                     Spacer(16.dp)
                     Story()
+                    Spacer(32.dp)
+                }
+            }
+            item {
+                Divider(modifier = Modifier.padding(vertical = 16.dp))
+            }
+            item {
+                Text(
+                    "Events",
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier.padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = 0.dp,
+                        bottom = 8.dp
+                    )
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .horizontalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                ) {
+                    Spacer(16.dp)
+                    Event()
+                    Spacer(16.dp)
+                    Event()
+                    Spacer(16.dp)
+                    Event()
+                    Spacer(16.dp)
+                    Event()
                     Spacer(32.dp)
                 }
             }
