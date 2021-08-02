@@ -28,7 +28,7 @@ fun Artwork(
             elevation = 16.dp,
             color = MaterialTheme.colors.primaryVariant,
             shape = MaterialTheme.shapes.large,
-            modifier = Modifier.size(246.dp, 198.dp)
+            modifier = Modifier.size(216.dp, 176.dp)
         ) {}
         Spacer(size = 16.dp)
         ArtworkAction()

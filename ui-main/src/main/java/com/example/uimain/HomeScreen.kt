@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -47,38 +49,82 @@ fun HomeScreen(
             HomeTopAppBar()
         }
     ) { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .horizontalScroll(rememberScrollState())
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .padding(16.dp)
-            ) {
-                SearchChip()
-                Spacer(size = 8.dp)
-                Chip(text = "Materials")
-                Spacer(size = 8.dp)
-                Chip(text = "Paintings")
-                Spacer(size = 8.dp)
-                Chip(text = "Time Based Media")
-                Spacer(size = 8.dp)
-                Chip(text = "Equipment")
+        LazyColumn(modifier = Modifier.padding(innerPadding)) {
+            item {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .horizontalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(16.dp)
+                ) {
+                    SearchChip()
+                    Spacer(size = 8.dp)
+                    Chip(text = "Materials")
+                    Spacer(size = 8.dp)
+                    Chip(text = "Paintings")
+                    Spacer(size = 8.dp)
+                    Chip(text = "Time Based Media")
+                    Spacer(size = 8.dp)
+                    Chip(text = "Equipment")
+                }
             }
-            Row(
-                modifier = Modifier.horizontalScroll(rememberScrollState()).fillMaxWidth()
-                    .wrapContentHeight()
-            ) {
-                Spacer(16.dp)
-                Artwork()
-                Spacer(16.dp)
-                Artwork()
-                Spacer(16.dp)
-                Artwork()
-                Spacer(16.dp)
-                Artwork()
-                Spacer(16.dp)
+            item {
+                Row(
+                    modifier = Modifier
+                        .horizontalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                ) {
+                    Spacer(16.dp)
+                    Artwork()
+                    Spacer(16.dp)
+                    Artwork()
+                    Spacer(16.dp)
+                    Artwork()
+                    Spacer(16.dp)
+                    Artwork()
+                    Spacer(32.dp)
+                }
+            }
+            item {
+                Divider(modifier = Modifier.padding(vertical = 16.dp))
+            }
+            item {
+                Text(
+                    "Stories",
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier.padding(
+                        start = 16.dp,
+                        end = 16.dp,
+                        top = 0.dp,
+                        bottom = 8.dp
+                    )
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .horizontalScroll(rememberScrollState())
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                ) {
+                    Spacer(16.dp)
+                    Story()
+                    Spacer(16.dp)
+                    Story()
+                    Spacer(16.dp)
+                    Story()
+                    Spacer(16.dp)
+                    Story()
+                    Spacer(16.dp)
+                    Story()
+                    Spacer(32.dp)
+                }
+            }
+            item {
+                Spacer(64.dp)
             }
         }
     }

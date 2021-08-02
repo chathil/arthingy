@@ -59,7 +59,7 @@ val ArthingyTypography = Typography(
     subtitle1 = TextStyle(
         fontFamily = Poppins,
         fontSize = 16.sp,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         lineHeight = 24.sp,
         letterSpacing = 0.9.sp
     ),
