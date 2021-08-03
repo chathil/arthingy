@@ -1,5 +1,6 @@
 package com.example.uimain
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -23,6 +24,7 @@ import androidx.compose.material.contentColorFor
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +32,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 
@@ -37,13 +40,15 @@ import com.google.accompanist.insets.statusBarsPadding
 fun ExpandedTopAppBar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    navigationIcon: @Composable (() -> Unit)? = null,
-    actions: @Composable RowScope.() -> Unit = {},
+    navigationIcon: @Composable() (() -> Unit)? = null,
+    actions: @Composable() (RowScope.() -> Unit) = {},
     expandedContent: @Composable () -> Unit = {},
     backgroundColor: Color = MaterialTheme.colors.primarySurface,
     contentColor: Color = contentColorFor(backgroundColor),
-    elevation: Dp = AppBarDefaults.TopAppBarElevation
+    elevation: Dp = AppBarDefaults.TopAppBarElevation,
+    scrollOffset: Float
 ) {
+    val height by animateDpAsState(targetValue = max(42.dp, 56.dp * scrollOffset))
     ExpandedAppBar(
         backgroundColor,
         contentColor,
@@ -51,10 +56,12 @@ fun ExpandedTopAppBar(
         PaddingValues(0.dp),
         RectangleShape,
         modifier
+            .wrapContentHeight()
+            .fillMaxWidth()
             .statusBarsPadding()
             .navigationBarsPadding(bottom = false),
     ) {
-        Row(Modifier.height(AppBarHeight)) {
+        Row(Modifier.height(height)) {
             if (navigationIcon == null) {
                 Spacer(TitleInsetWithoutIcon)
             } else {
