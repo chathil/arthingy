@@ -5,36 +5,22 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.example.artic.data.source.local.LocalDataSource
-import com.example.artic.data.source.local.entity.ArtworkEntity
+import com.example.artic.data.source.local.entity.AgentEntity
 import com.example.artic.data.source.remote.RemoteDataSource
+import com.example.artic.data.source.remote.network.ArticConfig
 import com.example.artic.data.source.remote.response.asEntities
 import retrofit2.HttpException
 import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
-class ArtworkPagedKeyedRemoteMediator(
+class AgentPagedKeyedRemoteMediator(
     private val local: LocalDataSource,
-    private val remote: RemoteDataSource
-) : RemoteMediator<Int, ArtworkEntity>() {
-
-    // TODO: 03/08/21 Make this timer work
-    override suspend fun initialize(): InitializeAction {
-        val cacheTimeout = TimeUnit.HOURS.convert(1, TimeUnit.MILLISECONDS)
-        return if (false) {
-            // Cached data is up-to-date, so there is no need to re-fetch from network.
-            InitializeAction.SKIP_INITIAL_REFRESH
-        } else {
-            // Need to refresh cached data from network; returning LAUNCH_INITIAL_REFRESH here
-            // will also block RemoteMediator's APPEND and PREPEND from running until REFRESH
-            // succeeds.
-            InitializeAction.LAUNCH_INITIAL_REFRESH
-        }
-    }
-
+    private val remote: RemoteDataSource,
+    private val query: ArticConfig
+) : RemoteMediator<Int, AgentEntity>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, ArtworkEntity>
+        state: PagingState<Int, AgentEntity>
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
@@ -46,12 +32,17 @@ class ArtworkPagedKeyedRemoteMediator(
                     lastItem.currentPage + 1
                 }
             }
-
-            val response = remote.artworks(loadKey ?: 1, state.config.pageSize).asEntities()
+            val response =
+                remote.individualAgents(
+                    query.params ?: "",
+                    query.fields ?: "",
+                    state.config.pageSize
+                )
+                    .asEntities()
             if (loadType == LoadType.REFRESH)
-                local.freshInsertArtworks(response, response.firstOrNull()?.currentPage ?: 1)
+                local.freshInsertAgents(response, response.firstOrNull()?.currentPage ?: 1)
             else
-                local.insertArtworks(response)
+                local.insertAgents(response)
             MediatorResult.Success(endOfPaginationReached = response.firstOrNull()?.currentPage == response.firstOrNull()?.totalPages)
         } catch (e: IOException) {
             MediatorResult.Error(e)

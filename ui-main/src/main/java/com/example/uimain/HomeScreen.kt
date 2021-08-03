@@ -52,8 +52,10 @@ fun HomeScreen(
     val scaffoldState = rememberScaffoldState()
     val scrollOffset: Float = min(
         1f,
-        1 - (lazyListState.firstVisibleItemScrollOffset / threshold +
-                lazyListState.firstVisibleItemIndex)
+        1 - (
+            lazyListState.firstVisibleItemScrollOffset / threshold +
+                lazyListState.firstVisibleItemIndex
+            )
     )
 
     Scaffold(

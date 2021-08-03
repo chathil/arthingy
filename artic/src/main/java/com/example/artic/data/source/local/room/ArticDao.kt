@@ -6,13 +6,15 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import com.example.artic.data.source.local.entity.AgentEntity
 import com.example.artic.data.source.local.entity.ArtworkEntity
 
 @Dao
 abstract class ArticDao {
+    // Artworks
     @Transaction
     open suspend fun freshInsertArtworks(arts: List<ArtworkEntity>, page: Int) {
-        deleteByPage(page)
+        deleteArtworksByPage(page)
         insertArtworks(arts)
     }
 
@@ -26,11 +28,37 @@ abstract class ArticDao {
     abstract suspend fun artworkLastUpdated(): Long?
 
     @Query("DELETE FROM artwork WHERE id = :id")
-    abstract fun delete(id: Int)
+    abstract fun deleteArtwork(id: Int)
 
     @Query("DELETE FROM artwork WHERE currentPage = :page")
-    abstract fun deleteByPage(page: Int)
+    abstract fun deleteArtworksByPage(page: Int)
 
     @Query("DELETE FROM artwork")
-    abstract fun deleteAll()
+    abstract fun deleteAllArtworks()
+
+    // Agents
+
+    @Transaction
+    open suspend fun freshInsertAgents(agents: List<AgentEntity>, page: Int) {
+        deleteAgentsByPage(page)
+        insertAgents(agents)
+    }
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract suspend fun insertAgents(agents: List<AgentEntity>)
+
+    @Query("SELECT * FROM agent ORDER BY agentLastUpdated DESC")
+    abstract fun loadAgents(): PagingSource<Int, AgentEntity>
+
+    @Query("SELECT lastUpdated FROM agent ORDER BY lastUpdated DESC LIMIT 1")
+    abstract suspend fun agentLastUpdated(): Long?
+
+    @Query("DELETE FROM agent WHERE id = :id")
+    abstract fun deleteAgent(id: Int)
+
+    @Query("DELETE FROM agent WHERE currentPage = :page")
+    abstract fun deleteAgentsByPage(page: Int)
+
+    @Query("DELETE from agent")
+    abstract fun deleteAllAgents()
 }
