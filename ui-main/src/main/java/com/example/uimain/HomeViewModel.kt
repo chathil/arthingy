@@ -29,6 +29,7 @@ class HomeViewModel @Inject constructor(
         get() = _isError
 
     fun artworks() = useCase.artworks()
+    fun individualAgents() = useCase.individualAgents()
 
     companion object {
         private val TAG = HomeViewModel::class.java.simpleName
