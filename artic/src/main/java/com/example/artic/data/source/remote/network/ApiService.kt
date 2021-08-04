@@ -14,6 +14,7 @@ interface ApiService {
     suspend fun individualAgents(
         @Path(value = "params", encoded = true) params: String,
         @Query("fields") fields: String,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int,
+        @Query("page") page: Int,
     ): AgentResponse
 }

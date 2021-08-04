@@ -20,7 +20,7 @@ interface ArticUseCase {
                 "death_place," +
                 "description," +
                 "last_updated",
-            params = "params=" + Json.encodeToString(
+            params = "?params=" + Json.encodeToString(
                 mapOf(
                     "query" to
                         mapOf(

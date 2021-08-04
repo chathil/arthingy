@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AgentResponse(
-    val paginationResponse: AgentPaginationResponse,
+    val pagination: AgentPaginationResponse,
     val data: List<AgentDataResponse>
 )
 
@@ -32,7 +32,7 @@ data class AgentDataResponse(
     @SerialName("death_place")
     val deathPlace: Int?,
     val description: String?,
-    @SerialName("artworks_ids")
+    @SerialName("artwork_ids")
     val artworkIds: List<Int>?,
     @SerialName("last_updated")
     val lastUpdated: String?
@@ -42,8 +42,8 @@ fun AgentResponse.asEntities() = data.map {
     AgentEntity(
         id = it.id,
         agentLastUpdated = it.lastUpdated?.iso8601ToLong() ?: 0,
-        totalPages = paginationResponse.totalPages,
-        currentPage = paginationResponse.currentPage,
+        totalPages = pagination.totalPages,
+        currentPage = pagination.currentPage,
         title = it.title,
         birthDate = it.birthDate,
         birthPlace = it.birthPlace,

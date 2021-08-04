@@ -1,5 +1,6 @@
 package com.example.artic.data.source.mediator
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -11,6 +12,7 @@ import com.example.artic.data.source.remote.network.ArticConfig
 import com.example.artic.data.source.remote.response.asEntities
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagingApi::class)
 class AgentPagedKeyedRemoteMediator(
@@ -18,6 +20,21 @@ class AgentPagedKeyedRemoteMediator(
     private val remote: RemoteDataSource,
     private val query: ArticConfig
 ) : RemoteMediator<Int, AgentEntity>() {
+
+    // TODO: 03/08/21 Make this timer work
+    override suspend fun initialize(): InitializeAction {
+        val cacheTimeout = TimeUnit.HOURS.convert(1, TimeUnit.MILLISECONDS)
+        return if (false) {
+            // Cached data is up-to-date, so there is no need to re-fetch from network.
+            InitializeAction.SKIP_INITIAL_REFRESH
+        } else {
+            // Need to refresh cached data from network; returning LAUNCH_INITIAL_REFRESH here
+            // will also block RemoteMediator's APPEND and PREPEND from running until REFRESH
+            // succeeds.
+            InitializeAction.LAUNCH_INITIAL_REFRESH
+        }
+    }
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, AgentEntity>
@@ -34,11 +51,13 @@ class AgentPagedKeyedRemoteMediator(
             }
             val response =
                 remote.individualAgents(
-                    query.params ?: "",
+                    "",
                     query.fields ?: "",
-                    state.config.pageSize
+                    state.config.pageSize,
+                    loadKey ?: 1
                 )
                     .asEntities()
+            Log.i(TAG, "load: $response")
             if (loadType == LoadType.REFRESH)
                 local.freshInsertAgents(response, response.firstOrNull()?.currentPage ?: 1)
             else
@@ -49,5 +68,9 @@ class AgentPagedKeyedRemoteMediator(
         } catch (e: HttpException) {
             MediatorResult.Error(e)
         }
+    }
+
+    companion object {
+        private val TAG = AgentPagedKeyedRemoteMediator::class.java.simpleName
     }
 }

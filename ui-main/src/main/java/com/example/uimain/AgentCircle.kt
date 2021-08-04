@@ -24,16 +24,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
-import com.example.commonui.component.Spacer
+import com.example.artic.domain.model.AgentModel
 import kotlin.math.max
 
 @Composable
-fun AgentCircle(modifier: Modifier = Modifier, scrollOffset: Float) {
+fun AgentCircle(modifier: Modifier = Modifier, scrollOffset: Float, agent: AgentModel) {
     val imageSize by animateDpAsState(targetValue = max(0.dp, 96.dp * scrollOffset))
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = modifier.wrapContentHeight().fillMaxWidth()
+        modifier = modifier
+            .wrapContentHeight()
+            .fillMaxWidth()
     ) {
         Surface(
             shape = CircleShape,
@@ -53,7 +55,7 @@ fun AgentCircle(modifier: Modifier = Modifier, scrollOffset: Float) {
         }
 
         Text(
-            "Georgia O'Keefe",
+            agent.title ?: "Unknown Agent",
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.caption,
@@ -67,13 +69,9 @@ fun AgentCircle(modifier: Modifier = Modifier, scrollOffset: Float) {
 fun AgentCirclePreview() {
     Surface {
         Row(modifier = Modifier.padding(16.dp)) {
-            AgentCircle(scrollOffset = .7f)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = .7f)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = .7f)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = .7f)
+            AgentModel.fakes.forEach {
+                AgentCircle(scrollOffset = .7f, agent = it)
+            }
         }
     }
 }

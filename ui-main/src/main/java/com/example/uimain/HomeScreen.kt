@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Divider
@@ -28,9 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
+import com.example.artic.domain.model.AgentModel
 import com.example.commonui.component.Spacer
 import com.example.commonui.util.LocalSysUiController
 import kotlin.math.min
@@ -43,8 +47,10 @@ enum class HomeViewComponent {
 fun HomeScreen(
     viewModel: HomeViewModel
 ) {
+    //    val artworks = viewModel.artworks().collectAsLazyPagingItems()
+    val agents = viewModel.individualAgents().collectAsLazyPagingItems()
+
     val threshold = 600f
-//    val artworks = viewModel.artworks().collectAsLazyPagingItems()
     LocalSysUiController.current.setStatusBarColor(
         MaterialTheme.colors.primarySurface
     )
@@ -61,7 +67,7 @@ fun HomeScreen(
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            HomeTopAppBar(scrollOffset = scrollOffset)
+            HomeTopAppBar(scrollOffset = scrollOffset, agents = agents)
         }
     ) { innerPadding ->
         LazyColumn(state = lazyListState, modifier = Modifier.padding(innerPadding)) {
@@ -201,7 +207,8 @@ fun SearchChip(
 @Composable
 private fun HomeTopAppBar(
     modifier: Modifier = Modifier,
-    scrollOffset: Float
+    scrollOffset: Float,
+    agents: LazyPagingItems<AgentModel>,
 ) {
     val title = stringResource(id = R.string.app_name)
 
@@ -218,7 +225,8 @@ private fun HomeTopAppBar(
         expandedContent = {
             AgentHeader(
                 scrollOffset = scrollOffset,
-                modifier = Modifier.wrapContentHeight()
+                modifier = Modifier.wrapContentHeight(),
+                agents = agents
             )
         },
         scrollOffset = scrollOffset,
@@ -231,6 +239,7 @@ fun AgentHeader(
     modifier: Modifier = Modifier,
     backgroundColor: Color = MaterialTheme.colors.primarySurface,
     scrollOffset: Float,
+    agents: LazyPagingItems<AgentModel>
 ) {
     val imageSize by animateDpAsState(targetValue = max(0.dp, 132.dp * scrollOffset))
     Surface(
@@ -239,38 +248,34 @@ fun AgentHeader(
             .height(imageSize)
             .fillMaxWidth()
     ) {
-        Row(
+        LazyRow(
             modifier = Modifier
                 .wrapContentHeight()
                 .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
                 .padding(bottom = 16.dp)
                 .background(Color.Transparent)
         ) {
-            Spacer(size = 16.dp)
-            AgentCircle(scrollOffset = scrollOffset)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = scrollOffset)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = scrollOffset)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = scrollOffset)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = scrollOffset)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = scrollOffset)
-            Spacer(size = 8.dp)
-            AgentCircle(scrollOffset = scrollOffset)
-            Spacer(size = 16.dp)
+            item {
+                Spacer(size = 16.dp)
+            }
+            items(agents) { agent ->
+                if (agent != null) {
+                    AgentCircle(scrollOffset = scrollOffset, agent = agent)
+                }
+            }
+            item {
+                Spacer(size = 8.dp)
+            }
         }
     }
 }
 
-@Preview
-@Composable
-private fun HomeTopAppBarPreview() {
-    HomeTopAppBar(scrollOffset = .7f)
-}
+// TODO: 04/08/21 Fix HomeTopAppBarPreview
+// @Preview
+// @Composable
+// private fun HomeTopAppBarPreview() {
+//    HomeTopAppBar(scrollOffset = .7f, agents = LazyPagingItems<AgentModel>(AgentModel.fakes))
+// }
 
 // {
 //    LazyColumn(

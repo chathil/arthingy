@@ -56,8 +56,9 @@ dependencies {
     implementation(com.example.arthingy.buildsrc.Libs.kotlinxSerialization)
     implementation(com.example.arthingy.buildsrc.Libs.kotlinxCollections)
 
-    implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Room.runtime)
-    implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Room.ktx)
+    // TODO: 04/08/21 Temporary solution
+    api(com.example.arthingy.buildsrc.Libs.AndroidX.Room.runtime)
+    api(com.example.arthingy.buildsrc.Libs.AndroidX.Room.ktx)
     kapt(com.example.arthingy.buildsrc.Libs.AndroidX.Room.compiler)
 
     implementation(com.example.arthingy.buildsrc.Libs.Retrofit.retrofit)

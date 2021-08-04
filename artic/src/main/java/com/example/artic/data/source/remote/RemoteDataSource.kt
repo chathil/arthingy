@@ -9,6 +9,6 @@ import javax.inject.Singleton
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
     //    fun artworks(page: Int) = flow { emit(apiService.artworks(page)) }.flowOn(Dispatchers.IO)
     suspend fun artworks(page: Int, limit: Int) = apiService.artworks(page, limit)
-    suspend fun individualAgents(params: String, fields: String, limit: Int) =
-        apiService.individualAgents(params, fields, limit)
+    suspend fun individualAgents(params: String, fields: String, limit: Int, page: Int) =
+        apiService.individualAgents(params, fields, limit, page)
 }
