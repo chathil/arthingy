@@ -10,6 +10,7 @@ buildscript {
         classpath(com.example.arthingy.buildsrc.Libs.Kotlin.gradlePlugin)
         classpath(com.example.arthingy.buildsrc.Libs.Hilt.hiltGradlePlugin)
         classpath(com.example.arthingy.buildsrc.Libs.Kotlin.serializationPlugin)
+        classpath(com.example.arthingy.buildsrc.Libs.SqlDelight.gradlePlugin)
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files

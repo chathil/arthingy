@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/common-ui" />
             <option value="$PROJECT_DIR$/common-ui-resources" />
             <option value="$PROJECT_DIR$/ui-main" />
+            <option value="$PROJECT_DIR$/wikipix" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

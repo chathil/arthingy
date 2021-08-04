@@ -18,6 +18,38 @@ object Libs {
     const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
     const val store = "com.dropbox.mobile.store:store4:4.0.2-KT15"
     const val fluentIcons = "com.microsoft.design:fluent-system-icons:1.1.136@aar"
+    // Used in KMM module
+    const val kermit = "co.touchlab:kermit:0.1.9"
+
+    // Used in KMM module
+    object SqlDelight {
+        private const val version = "1.5.1"
+        const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$version"
+        const val runtime = "com.squareup.sqldelight:runtime:$version"
+        const val coroutinesExtensions = "com.squareup.sqldelight:coroutines-extensions:$version"
+        const val runtimeJdk = "com.squareup.sqldelight:runtime-jvm:$version"
+        const val driverIos = "com.squareup.sqldelight:native-driver:$version"
+        const val driverAndroid = "com.squareup.sqldelight:android-driver:$version"
+    }
+
+    // Used in KMM module
+    object Ktor {
+        private const val version = "1.5.2"
+        const val commonCore = "io.ktor:ktor-client-core:$version"
+        const val commonJson = "io.ktor:ktor-client-json:$version"
+        const val commonLogging = "io.ktor:ktor-client-logging:$version"
+        const val androidCore = "io.ktor:ktor-client-okhttp:$version"
+        const val ios = "io.ktor:ktor-client-ios:$version"
+        const val commonSerialization = "io.ktor:ktor-client-serialization:$version"
+        const val serialization = "io.ktor:ktor-serialization:$version"
+    }
+
+    // Used in KMM module
+    object Koin {
+        private const val version = "3.1.2"
+        const val koinCore = "io.insert-koin:koin-core:$version"
+        const val koinTest = "io.insert-koin:koin-test:$version"
+    }
 
     object Hilt {
         private const val version = "2.38.1"
@@ -34,6 +66,13 @@ object Libs {
         const val serializationPlugin = "org.jetbrains.kotlin:kotlin-serialization:$version"
     }
 
+    object KotlinTest {
+        const val common = "test-common"
+        const val annotations = "test-annotations-common"
+        const val jvm = "test"
+        const val junit = "test-junit"
+    }
+
     object Retrofit {
         const val retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
         const val coroutinesAdapter =
@@ -43,7 +82,7 @@ object Libs {
     }
 
     object Coroutines {
-        private const val version = "1.5.1"
+        const val version = "1.5.1"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
@@ -91,6 +130,7 @@ object Libs {
             const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
             const val compiler = "androidx.compose.compiler:compiler:$version"
         }
+
         object Room {
             private const val version = "2.3.0"
             const val runtime = "androidx.room:room-runtime:$version"
