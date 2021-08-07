@@ -1,0 +1,9 @@
+use_frameworks!
+
+platform :ios, '14.1'
+
+install! 'cocoapods', :deterministic_uuids => false
+
+target 'Wikipix' do
+    pod 'wikipix', :path => '../wikipix/'
+end

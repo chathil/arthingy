@@ -1,0 +1,16 @@
+PODS:
+  - wikipix (1.0)
+
+DEPENDENCIES:
+  - wikipix (from `../wikipix/`)
+
+EXTERNAL SOURCES:
+  wikipix:
+    :path: "../wikipix/"
+
+SPEC CHECKSUMS:
+  wikipix: ed2d8484ca6d667a6e1715733c9e97cb02dd9e4c
+
+PODFILE CHECKSUM: 973df75f975cc957ec3c5f3a5b169a571dd1d813
+
+COCOAPODS: 1.10.1
