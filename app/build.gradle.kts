@@ -77,6 +77,7 @@ dependencies {
     implementation(project(":common-ui"))
     implementation(project(":ui-main"))
     implementation(project(":common-ui-resources"))
+    implementation(project(":wikipix"))
     implementation(Libs.hiltNavigationCompose)
 }
 

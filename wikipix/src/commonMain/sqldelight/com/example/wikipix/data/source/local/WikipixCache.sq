@@ -1,0 +1,13 @@
+CREATE TABLE UrlEntity(
+    title TEXT NOT NULL PRIMARY KEY,
+    url TEXT NOT NULL UNIQUE
+);
+
+loadUrl:
+SELECT * FROM UrlEntity
+WHERE title = ?
+LIMIT 1;
+
+insertUrl:
+INSERT OR REPLACE INTO UrlEntity
+VALUES(?, ?);

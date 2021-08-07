@@ -1,5 +1,3 @@
 package com.example.wikipix
 
-expect class Platform() {
-    val platform: String
-}
+internal expect fun printThrowable(t: Throwable)

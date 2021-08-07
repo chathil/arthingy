@@ -57,4 +57,5 @@ dependencies {
     implementation(project(":artic"))
     implementation(project(":common-ui"))
     implementation(project(":common-ui-resources"))
+    implementation(project(":wikipix"))
 }

@@ -1,6 +1,5 @@
 package com.example.artic.data.source.mediator
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -57,7 +56,6 @@ class AgentPagedKeyedRemoteMediator(
                     loadKey ?: 1
                 )
                     .asEntities()
-            Log.i(TAG, "load: $response")
             if (loadType == LoadType.REFRESH)
                 local.freshInsertAgents(response, response.firstOrNull()?.currentPage ?: 1)
             else

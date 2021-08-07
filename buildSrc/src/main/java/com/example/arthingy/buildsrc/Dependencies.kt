@@ -23,7 +23,7 @@ object Libs {
 
     // Used in KMM module
     object SqlDelight {
-        private const val version = "1.5.1"
+        private const val version = "1.5.0"
         const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$version"
         const val runtime = "com.squareup.sqldelight:runtime:$version"
         const val coroutinesExtensions = "com.squareup.sqldelight:coroutines-extensions:$version"
