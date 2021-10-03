@@ -2,7 +2,7 @@ package com.example.artic.domain.model
 
 data class AgentModel(
     val id: Int,
-    val title: String?,
+    val title: String,
     val birthDate: Int?,
     val birthPlace: Int?,
     val deathDate: Int?,

@@ -6,11 +6,13 @@ import androidx.room.TypeConverters
 import com.example.artic.data.source.local.entity.AgentEntity
 import com.example.artic.data.source.local.entity.ArtworkEntity
 import com.example.artic.data.source.local.entity.ArtworkTypeConverters
+import com.example.artic.data.source.local.entity.ArtworkTypeEntity
+import com.example.artic.data.source.local.entity.AudioEntity
 import com.example.artic.data.source.local.entity.IntTypeConverters
 import com.example.artic.data.source.local.entity.StringTypeConverters
 
 @Database(
-    entities = [ArtworkEntity::class, AgentEntity::class],
+    entities = [ArtworkEntity::class, AgentEntity::class, ArtworkTypeEntity::class, AudioEntity::class],
     version = 1,
     exportSchema = false
 )

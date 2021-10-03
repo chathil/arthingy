@@ -77,7 +77,7 @@ fun ArtworkEntity.asDomainModel() = ArtworkModel(
     apiModel = apiModel,
     apiLink = apiLink,
     isBoosted = isBoosted,
-    title = title,
+    title = title ?: "Unknown Title",
     altTitles = altTitles,
     mainReferenceNumber = mainReferenceNumber,
     hasNotBeenViewedMuch = hasNotBeenViewedMuch,
@@ -88,7 +88,7 @@ fun ArtworkEntity.asDomainModel() = ArtworkModel(
     dateQualifierTitle = dateQualifierTitle,
     dateQualifierId = dateQualifierId,
     artistDisplay = artistDisplay,
-    placeOfOrigin = placeOfOrigin,
+    placeOfOrigin = placeOfOrigin ?: "Unknown Origin",
     dimensions = dimensions,
     mediumDisplay = mediumDisplay,
     inscriptions = inscriptions,
@@ -111,7 +111,7 @@ fun ArtworkEntity.asDomainModel() = ArtworkModel(
     departmentId = departmentId,
     departmentTitle = departmentTitle,
     artistId = artistId,
-    artistTitle = artistTitle,
+    artistTitle = artistTitle ?: "Unknown Artist",
     altArtistIds = altArtistIds,
     artistIds = artistIds,
     artistTitles = artistTitles,
@@ -123,6 +123,8 @@ fun ArtworkEntity.asDomainModel() = ArtworkModel(
     info = info?.asDomainModel(),
     config = config?.asDomainModel()
 )
+
+fun List<ArtworkEntity>.asDomainModels() = map { it.asDomainModel() }
 
 @Serializable
 data class ArtworkCopyrightEntity(

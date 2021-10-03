@@ -4,7 +4,7 @@ CREATE TABLE UrlEntity(
 );
 
 loadUrl:
-SELECT * FROM UrlEntity
+SELECT url FROM UrlEntity
 WHERE title = ?
 LIMIT 1;
 

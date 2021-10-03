@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -20,19 +21,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.artic.domain.model.AudioModel
 
 @Composable
 fun Story(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    audio: AudioModel
 ) {
     Surface(
         shape = MaterialTheme.shapes.large,
         border = BorderStroke(2.dp, MaterialTheme.colors.primaryVariant),
         modifier = modifier
             .width(256.dp)
-            .wrapContentHeight()
+            .height(192.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -54,7 +56,7 @@ fun Story(
                     modifier = Modifier.padding(end = 16.dp)
                 )
                 Text(
-                    "Fragment of a Portrait Head of Antinous",
+                    audio.artworkTitle,
                     style = MaterialTheme.typography.body2,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -111,10 +113,11 @@ private fun StoryAction(
     }
 }
 
-@Preview
-@Composable
-private fun StoryPreview() {
-    Surface(Modifier.padding(8.dp)) {
-        Story()
-    }
-}
+// TODO: 26/09/21 fix preview
+// @Preview
+// @Composable
+// private fun StoryPreview() {
+//    Surface(Modifier.padding(8.dp)) {
+//        Story()
+//    }
+// }

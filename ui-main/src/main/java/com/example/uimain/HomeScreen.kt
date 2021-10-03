@@ -1,16 +1,18 @@
 package com.example.uimain
 
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.background
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Divider
@@ -23,54 +25,56 @@ import androidx.compose.material.Text
 import androidx.compose.material.primarySurface
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
+import coil.compose.rememberImagePainter
 import com.example.artic.domain.model.AgentModel
+import com.example.artic.domain.model.ArticImage
+import com.example.artic.domain.model.ArtworkModel
 import com.example.commonui.component.Spacer
+import com.example.commonui.component.ViewComponent
 import com.example.commonui.util.LocalSysUiController
-import kotlin.math.min
 
-enum class HomeViewComponent {
-//    PET_LIST
+enum class HomeViewComponent : ViewComponent {
+    ARTWORK,
+    ARTWORK_TYPE,
+    AGENT,
+    ENDLESS_ARTWORK,
+    STORIES,
+    NONE
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel
 ) {
-    //    val artworks = viewModel.artworks().collectAsLazyPagingItems()
-    val agents = viewModel.individualAgents().collectAsLazyPagingItems()
+    val artworks by viewModel.artworks().collectAsState(initial = emptyList())
+    val artworkTypes by viewModel.artworkTypes().collectAsState(initial = emptyList())
+    val pagedArtworks = viewModel.pagedArtworks().collectAsLazyPagingItems()
+    val agents by viewModel.individualAgents().collectAsState(initial = emptyList())
+    val audios by viewModel.audios().collectAsState(initial = emptyList())
 
-    val threshold = 600f
-    LocalSysUiController.current.setStatusBarColor(
-        MaterialTheme.colors.primarySurface
-    )
+    LocalSysUiController.current.setStatusBarColor(MaterialTheme.colors.primarySurface)
     val lazyListState = rememberLazyListState()
     val scaffoldState = rememberScaffoldState()
-    val scrollOffset: Float = min(
-        1f,
-        1 - (
-            lazyListState.firstVisibleItemScrollOffset / threshold +
-                lazyListState.firstVisibleItemIndex
-            )
-    )
 
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = {
-            HomeTopAppBar(scrollOffset = scrollOffset, agents = agents)
-        }
+        topBar = { HomeTopAppBar() }
     ) { innerPadding ->
         LazyColumn(state = lazyListState, modifier = Modifier.padding(innerPadding)) {
+            item {
+                Agents(agents = agents)
+            }
             item {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -81,33 +85,14 @@ fun HomeScreen(
                         .padding(16.dp)
                 ) {
                     SearchChip()
-                    Spacer(size = 8.dp)
-                    Chip(text = "Materials")
-                    Spacer(size = 8.dp)
-                    Chip(text = "Paintings")
-                    Spacer(size = 8.dp)
-                    Chip(text = "Time Based Media")
-                    Spacer(size = 8.dp)
-                    Chip(text = "Equipment")
+                    artworkTypes.forEach {
+                        Spacer(8.dp)
+                        Chip(text = it.title)
+                    }
                 }
             }
             item {
-                Row(
-                    modifier = Modifier
-                        .horizontalScroll(rememberScrollState())
-                        .fillMaxWidth()
-                        .wrapContentHeight()
-                ) {
-                    Spacer(16.dp)
-                    Artwork()
-                    Spacer(16.dp)
-                    Artwork()
-                    Spacer(16.dp)
-                    Artwork()
-                    Spacer(16.dp)
-                    Artwork()
-                    Spacer(32.dp)
-                }
+                Artworks(artworks = artworks)
             }
             item {
                 Divider(modifier = Modifier.padding(vertical = 16.dp))
@@ -131,16 +116,10 @@ fun HomeScreen(
                         .fillMaxWidth()
                         .wrapContentHeight()
                 ) {
-                    Spacer(16.dp)
-                    Story()
-                    Spacer(16.dp)
-                    Story()
-                    Spacer(16.dp)
-                    Story()
-                    Spacer(16.dp)
-                    Story()
-                    Spacer(16.dp)
-                    Story()
+                    audios.forEach { audio ->
+                        Spacer(16.dp)
+                        Story(audio = audio)
+                    }
                     Spacer(32.dp)
                 }
             }
@@ -180,6 +159,9 @@ fun HomeScreen(
             item {
                 Spacer(64.dp)
             }
+            grid(pagedArtworks) {
+                ArtworkGrid(it)
+            }
         }
     }
 }
@@ -206,9 +188,7 @@ fun SearchChip(
 
 @Composable
 private fun HomeTopAppBar(
-    modifier: Modifier = Modifier,
-    scrollOffset: Float,
-    agents: LazyPagingItems<AgentModel>,
+    modifier: Modifier = Modifier
 ) {
     val title = stringResource(id = R.string.app_name)
 
@@ -222,51 +202,88 @@ private fun HomeTopAppBar(
                 )
             }
         },
-        expandedContent = {
-            AgentHeader(
-                scrollOffset = scrollOffset,
-                modifier = Modifier.wrapContentHeight(),
-                agents = agents
-            )
-        },
-        scrollOffset = scrollOffset,
         modifier = modifier
     )
 }
 
 @Composable
-fun AgentHeader(
-    modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.primarySurface,
-    scrollOffset: Float,
-    agents: LazyPagingItems<AgentModel>
-) {
-    val imageSize by animateDpAsState(targetValue = max(0.dp, 132.dp * scrollOffset))
-    Surface(
-        color = backgroundColor,
+fun Artworks(modifier: Modifier = Modifier, artworks: List<ArtworkModel>) {
+    Row(
         modifier = modifier
-            .height(imageSize)
+            .horizontalScroll(rememberScrollState())
             .fillMaxWidth()
+            .wrapContentHeight()
     ) {
-        LazyRow(
-            modifier = Modifier
-                .wrapContentHeight()
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-                .background(Color.Transparent)
-        ) {
-            item {
-                Spacer(size = 16.dp)
-            }
-            items(agents) { agent ->
-                if (agent != null) {
-                    AgentCircle(scrollOffset = scrollOffset, agent = agent)
-                }
-            }
-            item {
-                Spacer(size = 8.dp)
-            }
+        artworks.forEach { artwork ->
+            Spacer(16.dp)
+            Artwork(
+                artwork = artwork
+            )
         }
+        Spacer(32.dp)
+    }
+}
+
+@Composable
+fun Agents(modifier: Modifier = Modifier, agents: List<Pair<AgentModel, String?>>) {
+    Row(
+        modifier = modifier
+            .horizontalScroll(rememberScrollState())
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(16.dp)
+    ) {
+        Spacer(size = 16.dp)
+        agents.forEach { agent ->
+            AgentCircle(agent = agent)
+        }
+        Spacer(size = 8.dp)
+    }
+}
+
+@Composable
+private fun ArtworkGrid(artworkPair: Pair<ArtworkModel?, ArtworkModel?>) {
+    val (left, right) = artworkPair
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Image(
+            rememberImagePainter(
+                data = ArticImage(left?.imageId).requestUrl()
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = null,
+            modifier = Modifier
+                .weight(.5f)
+                .height(132.dp)
+        )
+        Image(
+            rememberImagePainter(
+                data = ArticImage(right?.imageId).requestUrl()
+            ),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .weight(.5f)
+                .height(132.dp)
+        )
+    }
+    Spacer(2.dp)
+}
+
+@ExperimentalFoundationApi
+fun <T : Any> LazyListScope.grid(
+    lazyPagingItems: LazyPagingItems<T>,
+    itemContent: @Composable LazyItemScope.(value: Pair<T?, T?>) -> Unit
+) {
+
+    val pairs = lazyPagingItems.snapshot().windowed(2, 2).map {
+        Pair(it[0], it[1])
+    }
+
+    items(pairs.size) { index ->
+        itemContent(pairs[index])
     }
 }
 

@@ -1,6 +1,6 @@
 package com.example.uimain
 
-import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,13 +23,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
+import coil.compose.rememberImagePainter
+import coil.transform.CircleCropTransformation
 import com.example.artic.domain.model.AgentModel
-import kotlin.math.max
 
 @Composable
-fun AgentCircle(modifier: Modifier = Modifier, scrollOffset: Float, agent: AgentModel) {
-    val imageSize by animateDpAsState(targetValue = max(0.dp, 96.dp * scrollOffset))
+fun AgentCircle(
+    modifier: Modifier = Modifier,
+    agent: Pair<AgentModel, String?>?
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -41,21 +43,31 @@ fun AgentCircle(modifier: Modifier = Modifier, scrollOffset: Float, agent: Agent
             shape = CircleShape,
             color = MaterialTheme.colors.primaryVariant,
             modifier = Modifier
-                .size(imageSize)
+                .size(96.dp)
                 .padding(8.dp)
         ) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
-                    "GO",
+                    agent?.first?.title?.substring(0..2) ?: "N/A",
                     style = MaterialTheme.typography.subtitle2,
                     lineHeight = TextUnit.Unspecified,
                     modifier = Modifier.padding(0.dp)
                 )
             }
+            Image(
+                painter = rememberImagePainter(
+                    data = agent?.second,
+                    builder = {
+                        crossfade(true)
+                        transformations(CircleCropTransformation())
+                    },
+                ),
+                contentDescription = null,
+            )
         }
 
         Text(
-            agent.title ?: "Unknown Agent",
+            agent?.first?.title ?: "Unknown Agent",
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.caption,
@@ -70,7 +82,7 @@ fun AgentCirclePreview() {
     Surface {
         Row(modifier = Modifier.padding(16.dp)) {
             AgentModel.fakes.forEach {
-                AgentCircle(scrollOffset = .7f, agent = it)
+                AgentCircle(agent = it to "")
             }
         }
     }

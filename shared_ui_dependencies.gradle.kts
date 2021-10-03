@@ -37,7 +37,6 @@ dependencies {
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.fragmentKtx)
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.palette)
 
-
     implementation(com.example.arthingy.buildsrc.Libs.material)
     implementation(com.example.arthingy.buildsrc.Libs.Coil.coilCompose)
 

@@ -5,4 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface WikipixUseCase {
     fun loadUrl(title: String): Flow<Resource<String?>>
+    suspend fun loadUrlAsync(title: String): String?
+    fun observeUrl(title: String, completionHandler: (result: Resource<String?>) -> Unit)
+    fun onDestroy()
 }

@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface WikipixRepository {
     fun loadUrl(title: String): Flow<Resource<String?>>
+    suspend fun loadUrlAsync(title: String): String?
 }

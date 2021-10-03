@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import com.example.arthingy.buildsrc.Libs
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform")
@@ -32,25 +33,24 @@ kotlin {
         implementation(Libs.Ktor.commonCore)
         implementation(Libs.Ktor.commonJson)
         implementation(Libs.Ktor.commonLogging)
-        implementation(Libs.Coroutines.core) {
+        implementation(Libs.Coroutines.coreNative) {
             version {
-                strictly(Libs.Coroutines.version)
+                strictly(Libs.Coroutines.nativeVersion)
             }
         }
-        implementation(Libs.Koin.koinCore)
         implementation(Libs.Ktor.commonSerialization)
+        implementation(Libs.stately)
         api(Libs.kermit)
     }
 
     sourceSets["commonTest"].dependencies {
         implementation(kotlin("test-common"))
         implementation(kotlin("test-annotations-common"))
-        implementation(Libs.Koin.koinTest)
     }
     sourceSets["androidMain"].dependencies {
         implementation(kotlin("stdlib", Libs.Kotlin.version))
         implementation(Libs.SqlDelight.driverAndroid)
-        implementation(Libs.Coroutines.android)
+        implementation(Libs.Coroutines.androidNative)
         implementation(Libs.Ktor.androidCore)
     }
     sourceSets["androidTest"].dependencies {
@@ -64,14 +64,16 @@ kotlin {
     sourceSets["iosMain"].dependencies {
         implementation(Libs.SqlDelight.driverIos)
         implementation(Libs.Ktor.ios)
+        implementation(Libs.Coroutines.coreNative) {
+            version {
+                strictly(Libs.Coroutines.nativeVersion)
+            }
+        }
     }
 
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
-        frameworkName = "wikipix"
-        podfile = project.file("../ios/Podfile")
     }
 
     targets.withType<KotlinNativeTarget> {

@@ -18,8 +18,10 @@ object Libs {
     const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
     const val store = "com.dropbox.mobile.store:store4:4.0.2-KT15"
     const val fluentIcons = "com.microsoft.design:fluent-system-icons:1.1.136@aar"
+
     // Used in KMM module
     const val kermit = "co.touchlab:kermit:0.1.9"
+    const val stately = "co.touchlab:stately-common:1.1.7"
 
     // Used in KMM module
     object SqlDelight {
@@ -34,7 +36,7 @@ object Libs {
 
     // Used in KMM module
     object Ktor {
-        private const val version = "1.5.2"
+        private const val version = "1.6.0"
         const val commonCore = "io.ktor:ktor-client-core:$version"
         const val commonJson = "io.ktor:ktor-client-json:$version"
         const val commonLogging = "io.ktor:ktor-client-logging:$version"
@@ -82,9 +84,12 @@ object Libs {
     }
 
     object Coroutines {
-        const val version = "1.5.1"
+        const val nativeVersion = "1.5.0-native-mt"
+        const val version = "1.5.0"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+        const val coreNative = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$nativeVersion"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+        const val androidNative = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$nativeVersion"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
         const val playServices = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$version"
     }

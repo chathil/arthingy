@@ -53,17 +53,17 @@ android {
 }
 
 dependencies {
-    implementation(com.example.arthingy.buildsrc.Libs.kotlinxSerialization)
-    implementation(com.example.arthingy.buildsrc.Libs.kotlinxCollections)
+    implementation(Libs.kotlinxSerialization)
+    implementation(Libs.kotlinxCollections)
 
     // TODO: 04/08/21 Temporary solution
-    api(com.example.arthingy.buildsrc.Libs.AndroidX.Room.runtime)
-    api(com.example.arthingy.buildsrc.Libs.AndroidX.Room.ktx)
-    kapt(com.example.arthingy.buildsrc.Libs.AndroidX.Room.compiler)
+    api(Libs.AndroidX.Room.runtime)
+    api(Libs.AndroidX.Room.ktx)
+    kapt(Libs.AndroidX.Room.compiler)
 
-    implementation(com.example.arthingy.buildsrc.Libs.Retrofit.retrofit)
-    implementation(com.example.arthingy.buildsrc.Libs.Retrofit.coroutinesAdapter)
-    implementation(com.example.arthingy.buildsrc.Libs.Retrofit.kotlinxSerializationConverter)
+    implementation(Libs.Retrofit.retrofit)
+    implementation(Libs.Retrofit.coroutinesAdapter)
+    implementation(Libs.Retrofit.kotlinxSerializationConverter)
 }
 
 

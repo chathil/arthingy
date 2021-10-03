@@ -5,5 +5,5 @@ import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class UrlResponse(
-    val query: JsonObject? = null
+    val query: JsonObject?
 )

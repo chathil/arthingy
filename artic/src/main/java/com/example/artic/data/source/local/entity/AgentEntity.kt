@@ -22,6 +22,6 @@ data class AgentEntity(
 )
 
 fun AgentEntity.asDomainModel() =
-    AgentModel(id, title, birthDate, birthPlace, deathDate, deathPlace, description, artworkIds)
+    AgentModel(id, title ?: "Unknown Title", birthDate, birthPlace, deathDate, deathPlace, description, artworkIds)
 
 fun List<AgentEntity>.asDomainModels() = map { it.asDomainModel() }

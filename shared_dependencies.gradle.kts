@@ -12,7 +12,11 @@ dependencies {
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.coreKtx)
     implementation(com.example.arthingy.buildsrc.Libs.AndroidX.Room.legacySupport)
 
-    implementation(com.example.arthingy.buildsrc.Libs.Coroutines.core)
+    implementation(com.example.arthingy.buildsrc.Libs.Coroutines.core) {
+        version {
+            strictly(com.example.arthingy.buildsrc.Libs.Coroutines.version)
+        }
+    }
     implementation(com.example.arthingy.buildsrc.Libs.Coroutines.android)
     implementation(com.example.arthingy.buildsrc.Libs.Coroutines.test)
     implementation(com.example.arthingy.buildsrc.Libs.Coroutines.playServices)
